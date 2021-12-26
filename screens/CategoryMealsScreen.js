@@ -13,6 +13,13 @@ export const CategoryMealsScreen = ({ navigation }) => {
           });
         }}
       />
+      <Button
+        title="Go Back"
+        onPress={() => {
+          // navigation.goBack();
+          navigation.pop();
+        }}
+      />
     </View>
   );
 };

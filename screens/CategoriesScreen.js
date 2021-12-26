@@ -9,7 +9,9 @@ export const CategoriesScreen = ({ navigation }) => {
         title="Go to Meals!"
         onPress={() => {
           // navigation.navigate({ routeName: "CategoryMeals" });
-          navigation.navigate("CategoryMeals");
+          // navigation.navigate("CategoryMeals");
+          navigation.push("CategoryMeals");
+          // navigation.replace('CategoryMeals')
         }}
       />
     </View>
