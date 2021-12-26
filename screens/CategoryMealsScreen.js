@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-export const CategoryMeals = () => {
+export const CategoryMealsScreen = () => {
   return (
     <View style={styles.screen}>
       <Text>Category Meals</Text>
