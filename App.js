@@ -3,6 +3,7 @@ import AppLoading from "expo-app-loading";
 import * as Font from "expo-font";
 import { useState } from "react";
 import MealsNavigator from "./navigation/MealsNavigator";
+import 'react-native-gesture-handler';
 
 const fetchFonts = () => {
   Font.loadAsync({
@@ -23,11 +24,7 @@ export default function App() {
       />
     );
   }
-  return (
-    <View style={styles.container}>
-      <MealsNavigator />
-    </View>
-  );
+  return <MealsNavigator />;
 }
 
 const styles = StyleSheet.create({
