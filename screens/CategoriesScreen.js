@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Platform,
 } from "react-native";
+import { CategoryGrid } from "../components/CategoryGrid";
 import Colors from "../constants/Colors";
 // import { TouchableOpacity } from "react-native-gesture-handler";
 import { CATEGORIES } from "../data/dummy-data";
@@ -15,24 +16,25 @@ import { CATEGORIES } from "../data/dummy-data";
 export const CategoriesScreen = ({ navigation }) => {
   const renderGridItem = ({ item: { id, title, color } }) => {
     return (
-      <TouchableOpacity
-        style={styles.gridItem}
-        onPress={() => {
-          // navigation.navigate({
-          //   routeName: "CategoryMeals",
-          //   params: {
-          //     categoryId: id,
-          //   },
-          // });
-          navigation.navigate("CategoryMeals", { categoryId: id });
+      <CategoryGrid
+        title={title}
+        color={color}
+        onSelect={() => {
+          navigation.navigate({
+            routeName: "CategoryMeals",
+            params: {
+              categoryId: id,
+            },
+          });
+          // navigation.navigate("CategoryMeals", { categoryId: id });
+
+          // push is used if a same page comes with folder expanding like Dropbox
           // navigation.push("CategoryMeals");
+
+          // replace is used when the previous page is not needed anymore like login/registration page
           // navigation.replace('CategoryMeals')
         }}
-      >
-        <View>
-          <Text>{title}</Text>
-        </View>
-      </TouchableOpacity>
+      />
     );
   };
 
@@ -59,10 +61,5 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-  },
-  gridItem: {
-    flex: 1,
-    margin: 15,
-    height: 150,
   },
 });
