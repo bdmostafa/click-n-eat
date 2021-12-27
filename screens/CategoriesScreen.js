@@ -13,19 +13,24 @@ import Colors from "../constants/Colors";
 import { CATEGORIES } from "../data/dummy-data";
 
 export const CategoriesScreen = ({ navigation }) => {
-  const renderGridItem = (itemData) => {
+  const renderGridItem = ({ item: { id, title, color } }) => {
     return (
       <TouchableOpacity
         style={styles.gridItem}
         onPress={() => {
-          // navigation.navigate({ routeName: "CategoryMeals" });
-          navigation.navigate("CategoryMeals");
+          // navigation.navigate({
+          //   routeName: "CategoryMeals",
+          //   params: {
+          //     categoryId: id,
+          //   },
+          // });
+          navigation.navigate("CategoryMeals", { categoryId: id });
           // navigation.push("CategoryMeals");
           // navigation.replace('CategoryMeals')
         }}
       >
         <View>
-          <Text>{itemData.item.title}</Text>
+          <Text>{title}</Text>
         </View>
       </TouchableOpacity>
     );
