@@ -1,10 +1,17 @@
 import React from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
+import { MEALS } from "../data/dummy-data";
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import { CustomHeaderButton } from "../components/CustomHeaderButton";
 
 export const MealDetailScreen = ({ navigation }) => {
+  const mealId = navigation.getParam("mealId");
+
+  const selectedMeal = MEALS.find((meal) => meal.id === mealId);
+
   return (
     <View style={styles.screen}>
-      <Text>The Meal Detail Screen...</Text>
+      <Text>{selectedMeal.title}</Text>
       <Button
         title="Go Back to Categories"
         onPress={() => {
@@ -13,6 +20,25 @@ export const MealDetailScreen = ({ navigation }) => {
       />
     </View>
   );
+};
+
+MealDetailScreen.navigationOptions = ({ navigation }) => {
+  const mealId = navigation.getParam("mealId");
+
+  const selectedMeal = MEALS.find((meal) => meal.id === mealId);
+
+  return {
+    headerTitle: selectedMeal.title,
+    headerRight: () => (
+      <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+        <Item
+          title="Favorite"
+          iconName="star"
+          onPress={() => console.log("f......")}
+        />
+      </HeaderButtons>
+    ),
+  };
 };
 
 const styles = StyleSheet.create({
