@@ -11,6 +11,14 @@ import { Ionicons } from "@expo/vector-icons";
 import { FavoritesScreen } from "../screens/FavoritesScreen";
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
 
+const defaultStackNavOptions = {
+  headerTitle: "Click N Eat",
+  headerStyle: {
+    backgroundColor: Platform.OS === "android" ? Colors.primaryColor : "",
+  },
+  headerTintColor: Platform.OS === "android" ? "white" : Colors.primaryColor,
+};
+
 const MealsNavigator = createStackNavigator(
   {
     Categories: CategoriesScreen,
@@ -32,14 +40,7 @@ const MealsNavigator = createStackNavigator(
     // initialRouteName: "Categories",
 
     // defaultNavigationOptions that merges with the screens
-    defaultNavigationOptions: {
-      headerTitle: "Click N Eat",
-      headerStyle: {
-        backgroundColor: Platform.OS === "android" ? Colors.primaryColor : "",
-      },
-      headerTintColor:
-        Platform.OS === "android" ? "white" : Colors.primaryColor,
-    },
+    defaultNavigationOptions: defaultStackNavOptions,
 
     // navigationOptions configure the nested navigator
     // that can be used in createBottomTabNavigator also
@@ -53,6 +54,17 @@ const MealsNavigator = createStackNavigator(
   }
 );
 
+const FavoriteNavigator = createStackNavigator(
+  {
+    Favorites: FavoritesScreen,
+    MealDetail: MealDetailScreen,
+  },
+  {
+    // initialRouteName: FavoritesScreen,
+    defaultNavigationOptions: defaultStackNavOptions,
+  }
+);
+
 const tabScreenConfig = {
   Meals: {
     screen: MealsNavigator,
@@ -63,17 +75,17 @@ const tabScreenConfig = {
           <Ionicons name="restaurant" size={25} color={tabInfo.tintColor} />
         );
       },
-      tabBarColor: Colors.primaryColor
+      tabBarColor: Colors.primaryColor,
     },
   },
   Favorite: {
-    screen: FavoritesScreen,
+    screen: FavoriteNavigator,
     navigationOptions: {
       // tabBarLabel: "Favorites!",
       tabBarIcon: (tabInfo) => {
         return <Ionicons name="star" size={25} color={tabInfo.tintColor} />;
       },
-      tabBarColor: Colors.accentColor
+      tabBarColor: Colors.accentColor,
     },
   },
 };
@@ -85,8 +97,8 @@ const MealsFavoriteTabNavigator =
         shifting: true,
         // barStyle does not work if tabBarColor is applied on navigationOptions
         barStyle: {
-          backgroundColor: Colors.primaryColor
-        }
+          backgroundColor: Colors.primaryColor,
+        },
       })
     : createBottomTabNavigator(tabScreenConfig, {
         tabBarOptions: {
