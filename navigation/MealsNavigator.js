@@ -6,10 +6,12 @@ import Colors from "../constants/Colors";
 import { CategoriesScreen } from "../screens/CategoriesScreen";
 import { CategoryMealsScreen } from "../screens/CategoryMealsScreen";
 import { MealDetailScreen } from "../screens/MealDetailScreen";
+import { FavoritesScreen } from "../screens/FavoritesScreen";
+import { FilterScreen } from "../screens/FilterScreen";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import { Ionicons } from "@expo/vector-icons";
-import { FavoritesScreen } from "../screens/FavoritesScreen";
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
+import { createDrawerNavigator } from "react-navigation-drawer";
 
 const defaultStackNavOptions = {
   headerTitle: "Click N Eat",
@@ -65,6 +67,18 @@ const FavoriteNavigator = createStackNavigator(
   }
 );
 
+const FiltersNavigator = createStackNavigator(
+  {
+    Filters: FilterScreen,
+  },
+  {
+    // navigationOptions: {
+    //   drawerLabel: "Filters..."
+    // },
+    defaultNavigationOptions: defaultStackNavOptions,
+  }
+);
+
 const tabScreenConfig = {
   Meals: {
     screen: MealsNavigator,
@@ -106,4 +120,21 @@ const MealsFavoriteTabNavigator =
         },
       });
 
-export default createAppContainer(MealsFavoriteTabNavigator);
+const MainNavigator = createDrawerNavigator({
+  MealsFavorite: {
+    screen: MealsFavoriteTabNavigator,
+    navigationOptions: {
+      drawerLabel: "Meals",
+    },
+  },
+  Filter: FiltersNavigator,
+}, {
+  contentOptions: {
+    activeTintColor: Colors.accentColor,
+    labelStyle: {
+      fontFamily: 'open-sans-bold',
+    }
+  }
+});
+
+export default createAppContainer(MainNavigator);

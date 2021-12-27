@@ -1,17 +1,10 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Button,
-  FlatList,
-  TouchableOpacity,
-  Platform,
-} from "react-native";
+import { StyleSheet, FlatList } from "react-native";
 import { CategoryGrid } from "../components/CategoryGrid";
-import Colors from "../constants/Colors";
+import { CustomHeaderButton } from "../components/CustomHeaderButton";
 // import { TouchableOpacity } from "react-native-gesture-handler";
 import { CATEGORIES } from "../data/dummy-data";
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
 export const CategoriesScreen = ({ navigation }) => {
   const renderGridItem = ({ item: { id, title, color } }) => {
@@ -48,12 +41,25 @@ export const CategoriesScreen = ({ navigation }) => {
   );
 };
 
-CategoriesScreen.navigationOptions = {
-  headerTitle: "Meal Categories",
-  // headerStyle: {
-  //   backgroundColor: Platform.OS === "android" ? Colors.primaryColor : "",
-  // },
-  // headerTintColor: Platform.OS === "android" ? "white" : Colors.primaryColor,
+CategoriesScreen.navigationOptions = ({ navigation }) => {
+  return {
+    headerTitle: "Meal Categories",
+    headerLeft: (
+      <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+        <Item
+          title="Menu"
+          iconName="menu"
+          onPress={() => {
+            navigation.toggleDrawer();
+          }}
+        />
+      </HeaderButtons>
+    ),
+    // headerStyle: {
+    //   backgroundColor: Platform.OS === "android" ? Colors.primaryColor : "",
+    // },
+    // headerTintColor: Platform.OS === "android" ? "white" : Colors.primaryColor,
+  };
 };
 
 const styles = StyleSheet.create({

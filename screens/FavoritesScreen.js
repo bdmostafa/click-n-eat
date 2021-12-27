@@ -1,6 +1,8 @@
 // import React from "react";
 import { MealList } from "../components/MealList";
 import { MEALS } from "../data/dummy-data";
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import { CustomHeaderButton } from "../components/CustomHeaderButton";
 
 export const FavoritesScreen = ({ navigation }) => {
   const FavoriteMeals = MEALS.filter(
@@ -9,6 +11,19 @@ export const FavoritesScreen = ({ navigation }) => {
   return <MealList listData={FavoriteMeals} navigation={navigation} />;
 };
 
-FavoritesScreen.navigationOptions = {
-  headerTitle: 'Your Favorites'
+FavoritesScreen.navigationOptions = ({ navigation }) => {
+  return {
+    headerTitle: "Favorite Meals",
+    headerLeft: (
+      <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+        <Item
+          title="Menu"
+          iconName="menu"
+          onPress={() => {
+            navigation.toggleDrawer();
+          }}
+        />
+      </HeaderButtons>
+    ),
+  };
 };
