@@ -12,6 +12,7 @@ import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { CustomHeaderButton } from "../components/CustomHeaderButton";
 import { DefaultText } from "../components/DefaultText";
 import Colors from "../constants/Colors";
+import { useSelector } from "react-redux";
 
 const ListItem = ({ children }) => {
   return (
@@ -21,9 +22,11 @@ const ListItem = ({ children }) => {
   );
 };
 export const MealDetailScreen = ({ navigation }) => {
+  const availableMeals = useSelector((state) => state.meals.meals);
+
   const mealId = navigation.getParam("mealId");
 
-  const selectedMeal = MEALS.find((meal) => meal.id === mealId);
+  const selectedMeal = availableMeals.find((meal) => meal.id === mealId);
 
   return (
     <ScrollView>

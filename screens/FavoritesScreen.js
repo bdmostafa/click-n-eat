@@ -3,12 +3,12 @@ import { MealList } from "../components/MealList";
 import { MEALS } from "../data/dummy-data";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { CustomHeaderButton } from "../components/CustomHeaderButton";
+import { useSelector } from "react-redux";
 
 export const FavoritesScreen = ({ navigation }) => {
-  const FavoriteMeals = MEALS.filter(
-    (meal) => meal.id === "m1" || meal.id === "m2"
-  );
-  return <MealList listData={FavoriteMeals} navigation={navigation} />;
+  const favoriteMeals = useSelector((state) => state.meals.favoriteMeals);
+
+  return <MealList listData={favoriteMeals} navigation={navigation} />;
 };
 
 FavoritesScreen.navigationOptions = ({ navigation }) => {
