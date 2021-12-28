@@ -24,11 +24,13 @@ const ListItem = ({ children }) => {
 export const MealDetailScreen = ({ navigation }) => {
   const dispatch = useDispatch();
 
-  const availableMeals = useSelector((state) => state.meals.meals);
-
   const mealId = navigation.getParam("mealId");
 
+  const availableMeals = useSelector((state) => state.meals.meals);
   const selectedMeal = availableMeals.find((meal) => meal.id === mealId);
+  const currentMealIsFavorite = useSelector((state) =>
+    state.meals.favoriteMeals.some((meal) => meal.id === mealId)
+  );
 
   const toggleFavoriteMealHandler = useCallback(() => {
     dispatch(toggleFavorite(mealId));
@@ -38,6 +40,10 @@ export const MealDetailScreen = ({ navigation }) => {
     // navigation.setParams({ mealTitle: selectedMeal.title });
     navigation.setParams({ toggleFavorite: toggleFavoriteMealHandler });
   }, [toggleFavoriteMealHandler]);
+
+  useEffect(() => {
+    navigation.setParams({ isFavorite: currentMealIsFavorite });
+  }, [currentMealIsFavorite]);
 
   return (
     <ScrollView>
@@ -71,18 +77,22 @@ export const MealDetailScreen = ({ navigation }) => {
 
 MealDetailScreen.navigationOptions = ({ navigation }) => {
   // const mealId = navigation.getParam("mealId");
-
   // const selectedMeal = MEALS.find((meal) => meal.id === mealId);
 
   const mealTitle = navigation.getParam("mealTitle");
   const toggleFavorite = navigation.getParam("toggleFavorite");
-
+  const isFavorite = navigation.getParam("isFavorite");
+  console.log(isFavorite);
   return {
     // headerTitle: selectedMeal.title,
     headerTitle: mealTitle,
     headerRight: () => (
       <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-        <Item title="Favorite" iconName="star" onPress={toggleFavorite} />
+        <Item
+          title="Favorite"
+          iconName={isFavorite ? "star" : "star-outline"}
+          onPress={toggleFavorite}
+        />
       </HeaderButtons>
     ),
   };
