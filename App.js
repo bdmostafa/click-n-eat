@@ -8,6 +8,10 @@ import { enableScreens } from "react-native-screens";
 import { Provider } from "react-redux";
 import { createStore, combineReducers } from "redux";
 import mealsReducer from "./store/reducers/meals";
+import { LogBox } from "react-native";
+
+//Ignore all log notifications
+LogBox.ignoreAllLogs();
 
 enableScreens();
 
@@ -17,8 +21,8 @@ const rootReducer = combineReducers({
 
 const store = createStore(rootReducer);
 
-const fetchFonts = () => {
-  Font.loadAsync({
+const fetchFonts = async () => {
+  await Font.loadAsync({
     "open-sans": require("./assets/fonts/OpenSans-Regular.ttf"),
     "open-sans-bold": require("./assets/fonts/OpenSans-Bold.ttf"),
   });

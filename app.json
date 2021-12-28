@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "click-n-eat",
-    "slug": "click-n-eat",
+    "name": "click-n-cook",
+    "slug": "click-n-cook",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

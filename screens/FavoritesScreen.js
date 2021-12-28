@@ -26,7 +26,7 @@ export const FavoritesScreen = ({ navigation }) => {
 FavoritesScreen.navigationOptions = ({ navigation }) => {
   return {
     headerTitle: "Favorite Meals",
-    headerLeft: (
+    headerLeft: () => (
       <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
         <Item
           title="Menu"
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   text: {
-    fontFamily: 'open-sans-bold',
-    color: Colors.primaryColor
-  }
+    fontFamily: "open-sans-bold",
+    color: Colors.primaryColor,
+  },
 });

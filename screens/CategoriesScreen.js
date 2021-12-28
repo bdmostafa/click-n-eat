@@ -44,7 +44,7 @@ export const CategoriesScreen = ({ navigation }) => {
 CategoriesScreen.navigationOptions = ({ navigation }) => {
   return {
     headerTitle: "Meal Categories",
-    headerLeft: (
+    headerLeft: () => (
       <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
         <Item
           title="Menu"

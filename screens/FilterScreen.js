@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Switch, Platform } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { CustomHeaderButton } from "../components/CustomHeaderButton";
 import Colors from "../constants/Colors";
-import {useDispatch} from 'react-redux'
+import { useDispatch } from "react-redux";
 import { setFilters } from "../store/actions/meals";
 
 const FilterSwitch = ({ label, state, onChange }) => {
@@ -37,7 +37,7 @@ export const FilterScreen = ({ navigation }) => {
     };
 
     // console.log(appliedFilters);
-    dispatch(setFilters(appliedFilters))
+    dispatch(setFilters(appliedFilters));
   }, [isGlutenFree, isLactoseFree, isVegan, isVegetarian]);
 
   useEffect(() => {
@@ -74,7 +74,7 @@ export const FilterScreen = ({ navigation }) => {
 FilterScreen.navigationOptions = ({ navigation }) => {
   return {
     headerTitle: "Filter Meals",
-    headerLeft: (
+    headerLeft: () => (
       <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
         <Item
           title="Menu"
@@ -85,7 +85,7 @@ FilterScreen.navigationOptions = ({ navigation }) => {
         />
       </HeaderButtons>
     ),
-    headerRight: (
+    headerRight: () => (
       <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
         <Item
           title="Save"
