@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import {
   View,
   Text,
@@ -11,7 +11,8 @@ import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { CustomHeaderButton } from "../components/CustomHeaderButton";
 import { DefaultText } from "../components/DefaultText";
 import Colors from "../constants/Colors";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleFavorite } from "../store/actions/meals";
 
 const ListItem = ({ children }) => {
   return (
@@ -21,15 +22,22 @@ const ListItem = ({ children }) => {
   );
 };
 export const MealDetailScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
+
   const availableMeals = useSelector((state) => state.meals.meals);
 
   const mealId = navigation.getParam("mealId");
 
   const selectedMeal = availableMeals.find((meal) => meal.id === mealId);
 
-  // useEffect(() => {
-  //   navigation.setParams({ mealTitle: selectedMeal.title });
-  // }, [selectedMeal]);
+  const toggleFavoriteMealHandler = useCallback(() => {
+    dispatch(toggleFavorite(mealId));
+  }, [dispatch, mealId]);
+
+  useEffect(() => {
+    // navigation.setParams({ mealTitle: selectedMeal.title });
+    navigation.setParams({ toggleFavorite: toggleFavoriteMealHandler });
+  }, [toggleFavoriteMealHandler]);
 
   return (
     <ScrollView>
@@ -67,17 +75,14 @@ MealDetailScreen.navigationOptions = ({ navigation }) => {
   // const selectedMeal = MEALS.find((meal) => meal.id === mealId);
 
   const mealTitle = navigation.getParam("mealTitle");
+  const toggleFavorite = navigation.getParam("toggleFavorite");
 
   return {
     // headerTitle: selectedMeal.title,
     headerTitle: mealTitle,
     headerRight: () => (
       <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-        <Item
-          title="Favorite"
-          iconName="star"
-          onPress={() => console.log("f......")}
-        />
+        <Item title="Favorite" iconName="star" onPress={toggleFavorite} />
       </HeaderButtons>
     ),
   };
