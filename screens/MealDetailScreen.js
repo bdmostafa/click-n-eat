@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Text,
@@ -7,7 +7,6 @@ import {
   ScrollView,
   Image,
 } from "react-native";
-import { MEALS } from "../data/dummy-data";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { CustomHeaderButton } from "../components/CustomHeaderButton";
 import { DefaultText } from "../components/DefaultText";
@@ -27,6 +26,10 @@ export const MealDetailScreen = ({ navigation }) => {
   const mealId = navigation.getParam("mealId");
 
   const selectedMeal = availableMeals.find((meal) => meal.id === mealId);
+
+  // useEffect(() => {
+  //   navigation.setParams({ mealTitle: selectedMeal.title });
+  // }, [selectedMeal]);
 
   return (
     <ScrollView>
@@ -59,12 +62,15 @@ export const MealDetailScreen = ({ navigation }) => {
 };
 
 MealDetailScreen.navigationOptions = ({ navigation }) => {
-  const mealId = navigation.getParam("mealId");
+  // const mealId = navigation.getParam("mealId");
 
-  const selectedMeal = MEALS.find((meal) => meal.id === mealId);
+  // const selectedMeal = MEALS.find((meal) => meal.id === mealId);
+
+  const mealTitle = navigation.getParam("mealTitle");
 
   return {
-    headerTitle: selectedMeal.title,
+    // headerTitle: selectedMeal.title,
+    headerTitle: mealTitle,
     headerRight: () => (
       <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
         <Item
